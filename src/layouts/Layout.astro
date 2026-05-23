@@ -1,0 +1,88 @@
+---
+import '../styles/manifesto-theme.css';
+import type { DocMeta } from '../lib/doc-meta';
+
+interface Props {
+	meta: DocMeta;
+}
+
+const { meta } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+		<title>{meta.title}</title>
+		<meta name="description" content={meta.description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+	</head>
+	<body>
+		<a class="skip" href="#content">Skip to content</a>
+
+		<header class="masthead">
+			<div class="masthead-inner">
+				<div class="top-row">
+					<span class="doc-mark">{meta.docMark}</span>
+					<a
+						class="github-link"
+						href="https://github.com/mahdavipanah/agentic-engineering-manifesto"
+						target="_blank"
+						rel="noreferrer"
+					>
+						GitHub
+					</a>
+				</div>
+
+				<div class="title-block">
+					<h1 class="title">
+						{meta.titleLines.map((line, index) => (
+							<>
+								{index > 0 && <br />}
+								{line}
+							</>
+						))}
+					</h1>
+					{meta.subtitle && <p class="subtitle">{meta.subtitle}</p>}
+				</div>
+
+				{(meta.version || meta.status || meta.published) && (
+					<div class="meta-strip">
+						{meta.version && (
+							<div class="meta-item">
+								<span class="meta-label">Version</span>
+								<span class="meta-value">{meta.version}</span>
+							</div>
+						)}
+						{meta.status && (
+							<div class="meta-item">
+								<span class="meta-label">Status</span>
+								<span class="meta-value">{meta.status}</span>
+							</div>
+						)}
+						{meta.published && (
+							<div class="meta-item">
+								<span class="meta-label">Published</span>
+								<span class="meta-value">{meta.published}</span>
+							</div>
+						)}
+					</div>
+				)}
+			</div>
+		</header>
+
+		<main id="content" class="doc-main">
+			<slot />
+		</main>
+
+		<footer>
+			<div class="footer-inner">
+				<span>End of manifesto{meta.version ? ` · v${meta.version}` : ''}</span>
+				{meta.published && <span>Published {meta.published}</span>}
+			</div>
+		</footer>
+	</body>
+</html>

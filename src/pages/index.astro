@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { marked } from 'marked';
+import { loadDocDocument } from '../lib/doc-meta';
+
+const { meta, body } = await loadDocDocument();
+
+marked.setOptions({ gfm: true });
+
+let htmlContent = marked.parse(body) as string;
+
+// Remove horizontal rules between sections (h2 borders provide separation).
+htmlContent = htmlContent.replace(/<hr>\n?/g, '');
+---
+
+<Layout meta={meta}>
+	<div class="doc">
+		<article set:html={htmlContent} />
+	</div>
+</Layout>
