@@ -19,6 +19,12 @@ const { meta } = Astro.props;
 		<meta name="description" content={meta.description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<a class="skip" href="#content">Skip to content</a>
@@ -26,7 +32,6 @@ const { meta } = Astro.props;
 		<header class="masthead">
 			<div class="masthead-inner">
 				<div class="top-row">
-					<span class="doc-mark">{meta.docMark}</span>
 					<a
 						class="github-link"
 						href="https://github.com/mahdavipanah/agentic-engineering-manifesto"
@@ -46,31 +51,7 @@ const { meta } = Astro.props;
 							</>
 						))}
 					</h1>
-					{meta.subtitle && <p class="subtitle">{meta.subtitle}</p>}
 				</div>
-
-				{(meta.version || meta.status || meta.published) && (
-					<div class="meta-strip">
-						{meta.version && (
-							<div class="meta-item">
-								<span class="meta-label">Version</span>
-								<span class="meta-value">{meta.version}</span>
-							</div>
-						)}
-						{meta.status && (
-							<div class="meta-item">
-								<span class="meta-label">Status</span>
-								<span class="meta-value">{meta.status}</span>
-							</div>
-						)}
-						{meta.published && (
-							<div class="meta-item">
-								<span class="meta-label">Published</span>
-								<span class="meta-value">{meta.published}</span>
-							</div>
-						)}
-					</div>
-				)}
 			</div>
 		</header>
 
@@ -80,8 +61,17 @@ const { meta } = Astro.props;
 
 		<footer>
 			<div class="footer-inner">
-				<span>End of manifesto{meta.version ? ` · v${meta.version}` : ''}</span>
-				{meta.published && <span>Published {meta.published}</span>}
+				<p>
+					Agentic Engineering Manifesto
+					{meta.version ? ` · v${meta.version}` : ''}
+					{meta.published ? ` · ${meta.published}` : ''}
+				</p>
+				<div class="footer-meta">
+					{meta.status && <span>{meta.status}</span>}
+					<a href="https://github.com/mahdavipanah/agentic-engineering-manifesto">
+						View on GitHub
+					</a>
+				</div>
 			</div>
 		</footer>
 	</body>
